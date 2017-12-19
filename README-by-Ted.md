@@ -1,4 +1,4 @@
-0. ssh connection is required to access every target nodes from local.
+0. ssh connection is required to access every target nodes from local or somewhere.
 
    ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
 
