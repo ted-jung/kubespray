@@ -2,7 +2,7 @@
 
    ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
 
-   * can use a designated single deployment node
+   * can use a designated single for deployment instead of using local
 
 1. Do not set any proxy settings to all hosts
    - /etc/environment, .profile, bashrc
