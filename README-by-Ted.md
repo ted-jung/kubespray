@@ -18,7 +18,7 @@
      "- name: swapoff
         action: command swapoff -a "
 
-4. make a file("inventory.cfg") with directives
+4. make a file("inventory.cfg") with directives in below
 
     [all]
     
@@ -37,7 +37,7 @@
     [rack0:vars]
     cluster_id="1.0.0.1"
 
-    =>Example
+    *** Example ***
     Three masters,
     
     Three etcds on the same server on where masters are running
@@ -53,30 +53,43 @@
     
     [all]
     k8s-master1 ansible_ssh_host=10.195.22.197 ip=10.195.22.197
+    
     k8s-master2 ansible_ssh_host=10.195.22.199 ip=10.195.22.199
+    
     k8s-master3 ansible_ssh_host=10.195.22.204 ip=10.195.22.204
+    
     k8s-worker1 ansible_ssh_host=10.195.22.205 ip=10.195.22.205
+    
     k8s-worker2 ansible_ssh_host=10.195.22.210 ip=10.195.22.210
+    
     k8s-worker3 ansible_ssh_host=10.195.22.212 ip=10.195.22.212
+    
     rr ansible_ssh_host=10.195.22.225 ip=10.195.22.225
 
     [kube-master]
     k8s-master1
+    
     k8s-master2
+    
     k8s-master3
 
     [etcd]
     k8s-master1
+    
     k8s-master2
+    
     k8s-master3
 
     [kube-node]
     k8s-worker1
+    
     k8s-worker2
+    
     k8s-worker3
 
     [k8s-cluster:children]
     kube-node
+    
     kube-master
 
     [calico-rr]
@@ -84,11 +97,15 @@
 
     [rack0]
     k8s-master1
+    
     k8s-master2
+    
     k8s-master3
     rr
     k8s-worker1
+    
     k8s-worker2
+    
     k8s-worker3
 
     [rack0:vars]
