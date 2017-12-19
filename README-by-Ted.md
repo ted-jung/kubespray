@@ -1,14 +1,14 @@
-0. ssh connection is required to access every target nodes from local or somewhere.
+## 0. ssh connection is required to access every target nodes from local or somewhere.
 
    ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
 
    * can use a designated single for deployment instead of using local
 
-1. Do not set any proxy settings to all hosts
+## 1. Do not set any proxy settings on all hosts
    - /etc/environment, .profile, bashrc
-   - just use bare VM environment
-
-2. Set value of proxy to a few files in below
+     just use bare VM
+     
+## 2. Set value of proxy to a few files in below
    - inventory/group_vars/all.yaml (go to line 96)
    
      http_proxy: "http://proxy.daumkakao.io:3128"
@@ -29,14 +29,14 @@
 
       - 10.20.30.40"
 
-3. Add a single task at the end
+## 3. Add a single task at the end
    - roles/bootstrap-os/tasks/bootstrap-ubuntu.yaml
      
      "- name: swapoff
      
         action: command swapoff -a "
 
-4. make a file("inventory.cfg") with directives in below
+## 4. make a file("inventory.cfg") with directives in below
 
     [all]
     
@@ -133,4 +133,4 @@
     
     =================================================================
 
-* Enjoy Kubernetes
+## * Enjoy Kubernetes
