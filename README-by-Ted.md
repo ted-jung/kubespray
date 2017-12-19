@@ -19,17 +19,25 @@
         action: command swapoff -a "
 
 4. make a file("inventory.cfg") with directives
+
     [all]
+    
     [kube-master]
+    
     [etcd]
+    
     [kube-node]
+    
     [k8s-cluster:children]
+    
     [calico-rr]
+    
     [rack0]
+    
     [rack0:vars]
     cluster_id="1.0.0.1"
 
-    Example)
+    =>Example
     Three masters,
     Three etcds on the same server on where masters are running
     Three workers
