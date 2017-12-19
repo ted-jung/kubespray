@@ -23,6 +23,12 @@
      
      replace value("none") to operating system what you wish to run (i.g, bootstrap_os: ubuntu)
 
+   - inventory/group_vars/all.yml (go to line 54)
+
+     "upstream_dns_servers:
+
+      - 10.20.30.40"
+
 3. Add a single task at the end
    - roles/bootstrap-os/tasks/bootstrap-ubuntu.yaml
      
