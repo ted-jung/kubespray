@@ -1,3 +1,8 @@
+0. ssh connection is required to access every target nodes from local.
+   ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
+   
+   * can use a designated single deployment node
+
 1. Do not set any proxy settings to all hosts
    - /etc/environment, .profile, bashrc
    - just use bare VM environment
