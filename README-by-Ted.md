@@ -43,7 +43,9 @@
     [rack0:vars]
     cluster_id="1.0.0.1"
 
+
     *** Example ***
+    
     Three masters,
     
     Three etcds on the same server on where masters are running
