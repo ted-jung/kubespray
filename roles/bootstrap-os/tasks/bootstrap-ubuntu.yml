@@ -24,3 +24,6 @@
     ansible_python_interpreter: "/usr/bin/python"
   tags:
     - facts
+
+- name: swapoff
+  action: command swapoff -a

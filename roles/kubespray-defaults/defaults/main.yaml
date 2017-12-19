@@ -1,7 +1,7 @@
 ---
 ## Required for bootstrap-os/preinstall/download roles and setting facts
 # Valid bootstrap options (required): ubuntu, coreos, centos, none
-bootstrap_os: none
+bootstrap_os: ubuntu
 
 # Use proxycommand if bastion host is in group all
 # This change obseletes editing ansible.cfg file depending on bastion existance
@@ -190,7 +190,7 @@ no_proxy: >-
   {%-   endif -%}
   {{ item }},{{ item }}.{{ dns_domain }},
   {%- endfor -%}
-  127.0.0.1,localhost
+  127.0.0.1,localhost,10.195.22.225,10.195.22.212,10.195.22.210,10.195.22.205,10.195.22.204,10.195.22.199,10.195.22.197
 
 proxy_env:
   http_proxy: "{{ http_proxy| default ('') }}"

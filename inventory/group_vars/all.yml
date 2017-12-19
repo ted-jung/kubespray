@@ -1,5 +1,5 @@
 # Valid bootstrap options (required): ubuntu, coreos, centos, none
-bootstrap_os: none
+bootstrap_os: ubuntu
 
 #Directory where etcd data stored
 etcd_data_dir: /var/lib/etcd
@@ -50,7 +50,9 @@ bin_dir: /usr/local/bin
 #peer_with_router: false
 
 ## Upstream dns servers used by dnsmasq
-#upstream_dns_servers:
+# commented out by Ted
+upstream_dns_servers:
+- 10.20.30.40
 #  - 8.8.8.8
 #  - 8.8.4.4
 
@@ -92,8 +94,12 @@ bin_dir: /usr/local/bin
 #kubeadm_token: "{{ kubeadm_token_first }}.{{ kubeadm_token_second }}"
 #
 ## Set these proxy values in order to update package manager and docker daemon to use proxies
-#http_proxy: ""
-#https_proxy: ""
+
+# commented out by Ted for downloading images from outside
+# don't need to add value into variable no_proxy in below
+# go to roles/kubespray-defaults/defaults/main.yaml,line 193 add what the IPs for all hosts (etcd, master, worker, rr)
+http_proxy: "http://proxy.daumkakao.io:3128"
+https_proxy: "http://proxy.daumkakao.io:3128"
 ## Refer to roles/kubespray-defaults/defaults/main.yml before modifying no_proxy
 #no_proxy: ""
 
