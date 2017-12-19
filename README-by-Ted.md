@@ -10,7 +10,7 @@
    - roles/kubespray-defaults/defaults/main.yaml (go to line 193)
      appends every IPs of all hosts at the end of no_proxy
      (i.g, 127.0.0.1,localhost,10.195.22.225~~~~~~)
-     replace none value to one of OS (i.g, bootstrap_os: ubuntu)
+     replace value("none") to operating system what you wish to run (i.g, bootstrap_os: ubuntu)
 
 3. Add a single task at the end
    - roles/bootstrap-os/tasks/bootstrap-ubuntu.yaml
