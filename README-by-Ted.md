@@ -6,6 +6,7 @@
    - inventory/group_vars/all.yaml (go to line 96)
      http_proxy: "http://proxy.daumkakao.io:3128"
      https_proxy: "http://proxy.daumkakao.io:3128"
+     
    - roles/kubespray-defaults/defaults/main.yaml (go to line 193)
      appends every IPs of all hosts at the end of no_proxy
      (i.g, 127.0.0.1,localhost,10.195.22.225~~~~~~)
@@ -34,7 +35,9 @@
     Three workers
     One route reflector
     Logical group
+    
     =================================================================
+    
     [all]
     k8s-master1 ansible_ssh_host=10.195.22.197 ip=10.195.22.197
     k8s-master2 ansible_ssh_host=10.195.22.199 ip=10.195.22.199
