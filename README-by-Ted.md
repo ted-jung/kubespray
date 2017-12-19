@@ -39,10 +39,15 @@
 
     =>Example
     Three masters,
+    
     Three etcds on the same server on where masters are running
+    
     Three workers
+    
     One route reflector
+    
     Logical group
+    
     
     =================================================================
     
