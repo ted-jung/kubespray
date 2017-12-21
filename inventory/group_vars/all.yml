@@ -27,7 +27,7 @@ bin_dir: /usr/local/bin
 #  port: 1234
 
 ## Internal loadbalancers for apiservers
-#loadbalancer_apiserver_localhost: true
+loadbalancer_apiserver_localhost: true
 
 ## Local loadbalancer should use this port instead, if defined.
 ## Defaults to kube_apiserver_port (6443)

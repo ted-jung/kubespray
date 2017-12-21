@@ -2,7 +2,7 @@
   - OS: Ubuntu16.04
   - Ansible: >2.4.0.0
   - Template: >2.9
-  # Accessing by ssh is required to make a secure channel to every target nodes from local or a dedicated host.
+  ### Accessing through ssh is required to make a secure channel to every target nodes from local or a dedicated host.
 
    * VM naming rule for creation
 
@@ -21,7 +21,7 @@
    * can delegate the role of deployment to a specific vm
    
 ## 1. Do not set any proxy settings on all hosts
-   - /etc/environment, .profile, bashrc
+   - left it without adding any proxy options at /etc/environment, .profile, bashrc
      just use bare VM itself
      
 ## 2. Set proxy-value at a few files in below
@@ -60,7 +60,7 @@
      set to true
      "loadbalancer_apiserver_localhost: true"
 
-## 4. Make a file("inventory.cfg") with directives in below
+## 5. Make a file("inventory/inventory.cfg") with directives in below
 
     [all]
     
@@ -158,10 +158,14 @@
     =================================================================
 
 
-## Use two option in below to reset(tear down)
+## Use two option in below to tear down
   
-  - replace cluster.yml with reset.yml and do it again.
+  - substitue cluster.yml for reset.yml and do it again.
   
   - delete whole vm...and recreate it again. (do a step #0)
   
 ## Enjoy~ Kubernetes where The Mine is inside in
+
+## Example of commands
+  - ansible-playbook -i inventory/inventory.cfg cluster.yml -b -v --ask-vault-pass -u deploy --flush-cache
+  - ansible-playbook -i inventory/inventory.cfg reset.yml -b -v --ask-vault-pass -u deploy --flush-cache  
