@@ -1,14 +1,30 @@
-## 0. ssh connection is required to access every target nodes from local or somewhere.
+## 0. Environment for testing 
+  - OS: Ubuntu16.04
+  - Ansible: >2.4.0.0
+  - Template: >2.9
+  # Accessing by ssh is required to make a secure channel to every target nodes from local or a dedicated host.
 
-   ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
+   * VM naming rule for creation
 
-   * can use a designated single for deployment instead of using local
+     - Master: [account]-k8s-master-[#n]
 
+     - Worker: [account]-k8s-worker-[#n]
+
+     - RR: [account]-k8s-rr[#n]
+
+   * how to exchange key from local to VMs
+     i.g) for i in {1..3};
+            do ssh-copy-id -i deploy@[account]-k8s-master-[#n].pg1.krane.9rum.cc;
+            done;
+     i.g) ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
+   
+   * can delegate the role of deployment to a specific vm
+   
 ## 1. Do not set any proxy settings on all hosts
    - /etc/environment, .profile, bashrc
-     just use bare VM
+     just use bare VM itself
      
-## 2. Set value of proxy to a few files in below
+## 2. Set proxy-value at a few files in below
    - inventory/group_vars/all.yaml (go to line 96)
    
      http_proxy: "http://proxy.daumkakao.io:3128"
@@ -29,14 +45,22 @@
 
       - 10.20.30.40"
 
-## 3. Add a single task at the end
+## 3. Add a single task to enable swapoff option at the end of file.
    - roles/bootstrap-os/tasks/bootstrap-ubuntu.yaml
      
      "- name: swapoff
      
         action: command swapoff -a "
 
-## 4. make a file("inventory.cfg") with directives in below
+## 4. Internal loadbalancers for apiservers
+   - go to line 30 to comment out
+     if high availability is required
+     Let's enable internal load balancer
+
+     set to true
+     "loadbalancer_apiserver_localhost: true"
+
+## 4. Make a file("inventory.cfg") with directives in below
 
     [all]
     
@@ -133,4 +157,11 @@
     
     =================================================================
 
-## * Enjoy Kubernetes
+
+## Use two option in below to reset(tear down)
+  
+  - replace cluster.yml with reset.yml and do it again.
+  
+  - delete whole vm...and recreate it again. (do a step #0)
+  
+## Enjoy~ Kubernetes where The Mine is inside in
