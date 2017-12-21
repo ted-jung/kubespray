@@ -13,9 +13,13 @@
      - RR: [account]-k8s-rr[#n]
 
    * how to exchange key from local to VMs
+
      i.g) for i in {1..3};
+
             do ssh-copy-id -i deploy@[account]-k8s-master-[#n].pg1.krane.9rum.cc;
+
             done;
+
      i.g) ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
    
    * can delegate the role of deployment to a specific vm
@@ -169,3 +173,9 @@
 ## Example of commands
   - ansible-playbook -i inventory/inventory.cfg cluster.yml -b -v --ask-vault-pass -u deploy --flush-cache
   - ansible-playbook -i inventory/inventory.cfg reset.yml -b -v --ask-vault-pass -u deploy --flush-cache  
+  ### You may want to add **worker** nodes to your existing cluster
+  - ansible-playbook -i inventory/inventory.cfg scale.yml -b -v --ask-vault-pass -u deploy --flush-cache
+    (remember! add new node spec into inventory.cfg...just add without changing anything!, you can see text message while scrolling)
+    TASK [kubernetes/node : include] *****************************************************************************************************
+    Thursday 21 December 2017  11:48:19 +0900 (0:00:00.078)       0:04:59.967 *****
+    included: /Users/ted.j/Kakaowork/Ted-K8S/kubespray/roles/kubernetes/node/tasks/install_host.yml for k8s-worker1, k8s-worker2, k8s-worker3, k8s-worker4
