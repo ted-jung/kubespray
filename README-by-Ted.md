@@ -145,12 +145,14 @@
     rr
 
     [rack0]
+    rr
+
     k8s-master1
     
     k8s-master2
     
     k8s-master3
-    rr
+    
     k8s-worker1
     
     k8s-worker2
