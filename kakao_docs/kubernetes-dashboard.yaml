@@ -12,23 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 # Configuration to deploy release version of the Dashboard UI compatible with
-# Kubernetes 1.7.
+# Kubernetes 1.8.
 #
 # Example usage: kubectl create -f <this_file>
 
-# ------------------- Dashboard Secret ------------------- #
-
-apiVersion: v1
-kind: Secret
-metadata:
-  labels:
-    k8s-app: kubernetes-dashboard
-  name: kubernetes-dashboard-certs
-  namespace: {{ system_namespace }}
-type: Opaque
-
----
 # ------------------- Dashboard Service Account ------------------- #
 
 apiVersion: v1
@@ -37,34 +26,36 @@ metadata:
   labels:
     k8s-app: kubernetes-dashboard
   name: kubernetes-dashboard
-  namespace: {{ system_namespace }}
+  namespace: kube-system
 
 ---
 # ------------------- Dashboard Role & Role Binding ------------------- #
 
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: kubernetes-dashboard-minimal
-  namespace: {{ system_namespace }}
+  namespace: kube-system
 rules:
-  # Allow Dashboard to create and watch for changes of 'kubernetes-dashboard-key-holder' secret.
+  # Allow Dashboard to create 'kubernetes-dashboard-key-holder' secret.
 - apiGroups: [""]
   resources: ["secrets"]
-  verbs: ["create", "watch"]
+  verbs: ["create"]
+  # Allow Dashboard to create 'kubernetes-dashboard-settings' config map.
 - apiGroups: [""]
   resources: ["configmaps"]
-  verbs: ["create"]  
+  verbs: ["create"]
+  # Allow Dashboard to get, update and delete Dashboard exclusive secrets.
 - apiGroups: [""]
   resources: ["secrets"]
-  # Allow Dashboard to get, update and delete 'kubernetes-dashboard-key-holder' secret.
-  resourceNames: ["kubernetes-dashboard-key-holder", "kubernetes-dashboard-certs"]
+  resourceNames: ["kubernetes-dashboard-key-holder"]
   verbs: ["get", "update", "delete"]
-  # Allow Dashboard to get metrics from heapster.
+  # Allow Dashboard to get and update 'kubernetes-dashboard-settings' config map.
 - apiGroups: [""]
   resources: ["configmaps"]
   resourceNames: ["kubernetes-dashboard-settings"]
   verbs: ["get", "update"]
+  # Allow Dashboard to get metrics from heapster.
 - apiGroups: [""]
   resources: ["services"]
   resourceNames: ["heapster"]
@@ -75,11 +66,11 @@ rules:
   verbs: ["get"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: kubernetes-dashboard-minimal
-  namespace: {{ system_namespace }}
+  namespace: kube-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -87,46 +78,17 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kubernetes-dashboard
-  namespace: {{ system_namespace }}
-
----
-# ------------------- Gross Hack For anonymous auth through api proxy ------------------- #
-# Allows users to reach login page and other proxied dashboard URLs
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: kubernetes-dashboard-anonymous
-rules:
-- apiGroups: [""]
-  resources: ["services/proxy", "secrets", "pods", "pods/log", ]
-  resourceNames: ["https:kubernetes-dashboard:"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-- nonResourceURLs: ["/ui", "/ui/*", "/api/v1/namespaces/{{ system_namespace }}/services/https:kubernetes-dashboard:/proxy/*"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: kubernetes-dashboard-anonymous
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: kubernetes-dashboard-anonymous
-subjects:
-- kind: User
-  name: system:anonymous
-
+  namespace: kube-system
 ---
 # ------------------- Dashboard Deployment ------------------- #
 
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta2
 metadata:
   labels:
     k8s-app: kubernetes-dashboard
   name: kubernetes-dashboard
-  namespace: {{ system_namespace }}
+  namespace: kube-system
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -138,54 +100,28 @@ spec:
       labels:
         k8s-app: kubernetes-dashboard
     spec:
-{% if not dashboard_use_custom_certs %}
-      initContainers:
-      - name: kubernetes-dashboard-init
-        image: {{ dashboard_init_image_repo }}:{{ dashboard_init_image_tag }}
-        volumeMounts:
-        - name: kubernetes-dashboard-certs
-          mountPath: /certs
-{% endif %}
       containers:
       - name: kubernetes-dashboard
-        image: {{ dashboard_image_repo }}:{{ dashboard_image_tag }}
-        imagePullPolicy: Always
-        resources:
-          limits:
-            cpu: {{ dashboard_cpu_limit }}
-            memory: {{ dashboard_memory_limit }}
-          requests:
-            cpu: {{ dashboard_cpu_requests }}
-            memory: {{ dashboard_memory_requests }}
+        image: k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.1
         ports:
-        - containerPort: 8443
+        - containerPort: 9090
           protocol: TCP
         args:
-          - --tls-key-file=/certs/{{ dashboard_tls_key_file }}
-          - --tls-cert-file=/certs/{{ dashboard_tls_cert_file }}
-          - --authentication-mode=token{% if kube_basic_auth|default(false) %},basic{% endif %}
           # Uncomment the following line to manually specify Kubernetes API server Host
           # If not specified, Dashboard will attempt to auto discover the API server and connect
           # to it. Uncomment only if the default does not work.
           # - --apiserver-host=http://my-address:port
         volumeMounts:
-        - name: kubernetes-dashboard-certs
-          mountPath: /certs
-          readOnly: true
           # Create on-disk volume to store exec logs
         - mountPath: /tmp
           name: tmp-volume
         livenessProbe:
           httpGet:
-            scheme: HTTPS
             path: /
-            port: 8443
+            port: 9090
           initialDelaySeconds: 30
           timeoutSeconds: 30
       volumes:
-      - name: kubernetes-dashboard-certs
-        secret:
-          secretName: {{ dashboard_certs_secret_name }}
       - name: tmp-volume
         emptyDir: {}
       serviceAccountName: kubernetes-dashboard
@@ -196,19 +132,21 @@ spec:
 
 ---
 # ------------------- Dashboard Service ------------------- #
-
+# add type "NodePort"
+# add nodePort "30001"
+# to use it...pl, check the operation mode of kube-proxy (it should have "iptables")
 kind: Service
 apiVersion: v1
 metadata:
   labels:
     k8s-app: kubernetes-dashboard
   name: kubernetes-dashboard
-  namespace: {{ system_namespace }}
+  namespace: kube-system
 spec:
   ports:
-    - port: 443
-      targetPort: 8443
-      nodePort: 30080
+  - port: 80
+    targetPort: 9090
+    nodePort: 30001
+  type: NodePort
   selector:
     k8s-app: kubernetes-dashboard
-  type: NodePort

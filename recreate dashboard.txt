@@ -1,0 +1,19 @@
+kubernetes dashboard authorization
+
+* delete current kubernetes dashboard
+  kubebel delete -f kubernetes-dashboard.yaml
+* re run to create new dashboard container
+  kubectl create -f kubernetes-dashboard.yaml
+* execute a command in below for authorization
+kubectl create rolebinding serviceaccounts-view \
+  --clusterrole=view \
+  --group=system:serviceaccounts:my-namespace \
+  --namespace=my-namespace
+
+* What meaning of this command? 
+1. Grant a role to all service accounts in a namespace
+2. Define the namespace for this Grant
+3. Define the name of serviceaccounts
+4. rolebinding (serviceaccounts-view)
+
+=> can grant a role to the service acocunt group for that namespace

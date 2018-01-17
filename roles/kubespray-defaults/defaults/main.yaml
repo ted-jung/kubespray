@@ -190,7 +190,7 @@ no_proxy: >-
   {%-   endif -%}
   {{ item }},{{ item }}.{{ dns_domain }},
   {%- endfor -%}
-  127.0.0.1,localhost,10.195.22.225,10.195.22.212,10.195.22.210,10.195.22.205,10.195.22.204,10.195.22.199,10.195.22.197
+  127.0.0.1,localhost
 
 proxy_env:
   http_proxy: "{{ http_proxy| default ('') }}"

@@ -2,6 +2,7 @@
   - OS: Ubuntu16.04
   - Ansible: >2.4.0.0
   - Template: >2.9
+  - Python-netaddr should be installed
   ### Accessing through ssh is required to make a secure channel to every target nodes from local or a dedicated host.
 
    * VM naming rule for creation
@@ -12,7 +13,7 @@
 
      - RR: [account]-k8s-rr[#n]
 
-   * how to exchange key from local to VMs
+   * how to exchange key to access without from local to VMs
 
      i.g) for i in {1..3};
 
