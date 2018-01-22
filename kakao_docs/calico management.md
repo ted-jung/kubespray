@@ -48,17 +48,29 @@ Calico Management
       RR2. 10.195.22.47
 
    Note> Pl, do below lines per on each node(masters, workers).
+   
          replace the peerIP with IP of RR as much the number of RR.
+         
          replace the name with every workers/master
+         
     >  cat << EOF | calicoctl create -f -
+    
         apiVersion: v1
+        
           kind: bgpPeer
+          
           metadata:
+          
           peerIP: ${10.195.22.47} <- peerIP
+          
         scope: node
+        
           node: ks-master1 <- name of worker/master
+          
         spec:
+        
           asNumber: 64512
+          
         EOF
       
   ###  Wonderful beginning ~~
