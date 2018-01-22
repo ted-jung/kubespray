@@ -2,11 +2,11 @@ Calico Management
 =====================
 
 # There are three options for Calico network configuration.
-  Route Reflector(hence RR), which is one of options for container networking using Calico, is used.
-  It is configured well with just one route reflector via Kubspray.
-  If cluster grows highly according to the grow of service, 
-  then we need to set another RR that has another worker nodes.
-  Pl, be note the status of peering between nodes.
+  Route Reflector(hence RR), which is one of options for container networking using Calico.
+  It is configured well through Kubespray with just one RR.
+  As cluster grows highly according to the grow of Service, 
+  then we need to set another RR that has another new worker nodes.
+  Pl, check the status of peering between nodes after put new workers into current cluster.
 
 # Pre condition
   ## Status of peering option
