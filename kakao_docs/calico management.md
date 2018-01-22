@@ -4,15 +4,21 @@ Calico Management
 # There are three options for Calico network configuration.
   Route Reflector(hence RR), which is one of options for container networking using Calico, is used.
   It is configured well with just one route reflector via Kubspray.
-  If cluster grows highly according to the grow of service, then we need to set another RR that has another worker nodes.
+  If cluster grows highly according to the grow of service, 
+  then we need to set another RR that has another worker nodes.
   Pl, be note the status of peering between nodes.
 
 # Pre condition
-  full mesh(peering between nodes) should not be enabled on.
-  > calicoctl config set nodeToNodeMesh off
+  ## Status of peering option
+    full mesh(peering between nodes) should not be enabled on.
+    > calicoctl config set nodeToNodeMesh off
     
-  > calicoctl config get nodeToNodeMesh
-    off
+    > calicoctl config get nodeToNodeMesh
+      off
+
+  ## AS number
+    > calicoctl config get asNumber
+      64512 (this is default in kubespray)
 
 # How to check the running status of calico
 

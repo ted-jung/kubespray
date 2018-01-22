@@ -10,10 +10,6 @@ Access to Kubernetes Dashboard
       > kubectl create -f kubernetes-dashboard.yaml
 
   3. execute a command in below for authorization
-      > kubectl create rolebinding serviceaccounts-view \
-        --clusterrole=view \
-        --group=system:serviceaccounts:my-namespace \
-        --namespace=my-namespace
 
       > kubectl create rolebinding serviceaccounts-view \
         --clusterrole=view \
@@ -27,3 +23,5 @@ Access to Kubernetes Dashboard
     3. rolebinding (serviceaccounts-view)
 
     Finally, Grant a role to all service accounts in a namespace
+
+
