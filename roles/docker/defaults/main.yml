@@ -18,3 +18,5 @@ docker_rh_repo_base_url: 'https://yum.dockerproject.org/repo/main/centos/7'
 docker_rh_repo_gpgkey: 'https://yum.dockerproject.org/gpg'
 docker_apt_repo_base_url: 'https://apt.dockerproject.org/repo'
 docker_apt_repo_gpgkey: 'https://apt.dockerproject.org/gpg'
+
+no_proxy: localhost,127.0.0.1,idock.daumkakao.io,mdock.daumkakao.io,docker-auth.daumkakao.io
