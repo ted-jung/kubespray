@@ -4,7 +4,7 @@ Access to Kubernetes Dashboard
 # How to give cluster role to a single user
 
   1. delete current kubernetes dashboard
-      > kubebel delete -f kubernetes-dashboard.yaml
+      > kubectl delete -f kubernetes-dashboard.yaml
 
   2. re run to create new dashboard container
       > kubectl create -f kubernetes-dashboard.yaml
