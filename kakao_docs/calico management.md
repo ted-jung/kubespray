@@ -54,23 +54,14 @@ Calico Management
          replace the name with every workers/master
          
     >  cat << EOF | calicoctl create -f -
-    
         apiVersion: v1
-        
-          kind: bgpPeer
-          
-          metadata:
-          
+        kind: bgpPeer
+        metadata:
           peerIP: ${10.195.22.47} <- peerIP
-          
-        scope: node
-        
+          scope: node
           node: ks-master1 <- name of worker/master
-          
         spec:
-        
           asNumber: 64512
-          
         EOF
       
   ###  Wonderful beginning ~~
