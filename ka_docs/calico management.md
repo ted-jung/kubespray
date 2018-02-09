@@ -32,8 +32,8 @@ Calico Management
         +--------------+---------------+-------+----------+-------------+
         | PEER ADDRESS |   PEER TYPE   | STATE |  SINCE   |    INFO     |
         +--------------+---------------+-------+----------+-------------+
-        | 10.195.22.54 | node specific | up    | 05:21:15 | Established |
-        | 10.195.22.47 | node specific | up    | 05:22:38 | Established |
+        | 10.175.22.54 | node specific | up    | 05:21:15 | Established |
+        | 10.175.22.47 | node specific | up    | 05:22:38 | Established |
         +--------------+---------------+-------+----------+-------------+
 
   ## Worker node
@@ -44,8 +44,8 @@ Calico Management
   ## If rows are not the exact number of RR, then do below command to fill up or fix it.
 
     >  lets suppose, there two RR.
-      RR1. 10.195.22.54
-      RR2. 10.195.22.47
+      RR1. 10.175.22.54
+      RR2. 10.175.22.47
 
    Note> Pl, do below lines per on each node(masters, workers).
    
@@ -70,14 +70,14 @@ Calico Management
         +--------------+---------------+-------+----------+-------------+
         | PEER ADDRESS |   PEER TYPE   | STATE |  SINCE   |    INFO     |
         +--------------+---------------+-------+----------+-------------+
-        | 10.195.22.54 | node specific | up    | 05:21:15 | Established |
-        | 10.195.22.47 | node specific | up    | 05:22:38 | Established |
+        | 10.175.22.54 | node specific | up    | 05:21:15 | Established |
+        | 10.175.22.47 | node specific | up    | 05:22:38 | Established |
         +--------------+---------------+-------+----------+-------------+
     
     > calicoctl get bgpPeer --node=ks2-worker1
         SCOPE   PEERIP         NODE          ASN
-        node    10.195.22.47   ks2-worker1   64512
-        node    10.195.22.54   ks2-worker1   64512
+        node    10.175.22.47   ks2-worker1   64512
+        node    10.175.22.54   ks2-worker1   64512
 
 
   ## Extra Command
