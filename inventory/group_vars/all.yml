@@ -22,9 +22,10 @@ bin_dir: /usr/local/bin
 
 ## External LB example config
 ## apiserver_loadbalancer_domain_name: "elb.some.domain"
-#loadbalancer_apiserver:
-#  address: 1.2.3.4
-#  port: 1234
+## commented out by ted three lines 
+loadbalancer_apiserver:
+  address: 1.2.3.4
+  port: 1234
 
 ## Internal loadbalancers for apiservers
 loadbalancer_apiserver_localhost: true
@@ -105,7 +106,7 @@ https_proxy: "http://proxy.daumkakao.io:3128"
 
 ## Uncomment this if you want to force overlay/overlay2 as docker storage driver
 ## Please note that overlay2 is only supported on newer kernels
-#docker_storage_options: -s overlay2
+docker_storage_options: -s overlay2
 
 # Uncomment this if you have more than 3 nameservers, then we'll only use the first 3.
 #docker_dns_servers_strict: false

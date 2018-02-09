@@ -1,6 +1,6 @@
 # Kubernetes configuration dirs and system namespace.
 # Those are where all the additional config stuff goes
-# the kubernetes normally puts in /srv/kubernets.
+# the kubernetes normally puts in /srv/kubernetes.
 # This puts them in a sane location and namespace.
 # Editting those values will almost surely break something.
 kube_config_dir: /etc/kubernetes
@@ -178,4 +178,4 @@ local_volumes_enabled: false
 
 ## Supplementary addresses that can be added in kubernetes ssl keys.
 ## That can be usefull for example to setup a keepalived virtual IP
-# supplementary_addresses_in_ssl_keys: [10.0.0.1, 10.0.0.2, 10.0.0.3]
+## supplementary_addresses_in_ssl_keys: [10.195.7.237]
