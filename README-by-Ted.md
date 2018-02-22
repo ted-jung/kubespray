@@ -21,7 +21,7 @@
 
             done;
 
-     i.g) ssh-copy-id deploy@kmaster.exam.cc 
+     i.g) ssh-copy-id account@kmaster.exam.cc 
    
    * can delegate the role of deployment to a specific vm
    
