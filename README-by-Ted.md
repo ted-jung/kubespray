@@ -48,7 +48,7 @@
 
      "upstream_dns_servers:
 
-      - 10.20.30.40"
+      - 10.12.3.4"
 
 ## 3. Add a single task to enable swapoff option at the end of file.
    - roles/bootstrap-os/tasks/bootstrap-ubuntu.yaml
