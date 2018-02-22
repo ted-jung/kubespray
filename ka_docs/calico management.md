@@ -57,7 +57,7 @@ Calico Management
         apiVersion: v1
         kind: bgpPeer
         metadata:
-          peerIP: ${10.195.22.47} <- peerIP
+          peerIP: ${10.175.22.47} <- peerIP
           scope: node
           node: ks-master1 <- name of worker/master
         spec:

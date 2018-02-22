@@ -17,11 +17,11 @@
 
      i.g) for i in {1..3};
 
-            do ssh-copy-id -i deploy@[account]-k8s-master-[#n].pg1.krane.9rum.cc;
+            do ssh-copy-id -i account@[account]-k8s-master-[#n].exam.cc;
 
             done;
 
-     i.g) ssh-copy-id deploy@kmaster.pg1.krane.9rum.cc 
+     i.g) ssh-copy-id deploy@kmaster.exam.cc 
    
    * can delegate the role of deployment to a specific vm
    
@@ -32,15 +32,15 @@
 ## 2. Set proxy-value at a few files in below
    - inventory/group_vars/all.yaml (go to line 96)
    
-     http_proxy: "http://proxy.daumkakao.io:3128"
+     http_proxy: "http://proxy.example.io:3128"
      
-     https_proxy: "http://proxy.daumkakao.io:3128"
+     https_proxy: "http://proxy.example.io:3128"
      
    - roles/kubespray-defaults/defaults/main.yaml (go to line 193)
    
      appends every IPs of all hosts at the end of no_proxy
      
-     (i.g, 127.0.0.1,localhost,10.195.22.225~~~~~~)
+     (i.g, 127.0.0.1,localhost,10.175.22.225~~~~~~)
      
      replace value("none") to operating system what you wish to run (i.g, bootstrap_os: ubuntu)
 
@@ -101,19 +101,19 @@
     =================================================================
     
     [all]
-    k8s-master1 ansible_ssh_host=10.195.22.197 ip=10.195.22.197
+    k8s-master1 ansible_ssh_host=10.175.22.197 ip=10.175.22.197
     
-    k8s-master2 ansible_ssh_host=10.195.22.199 ip=10.195.22.199
+    k8s-master2 ansible_ssh_host=10.175.22.199 ip=10.175.22.199
     
-    k8s-master3 ansible_ssh_host=10.195.22.204 ip=10.195.22.204
+    k8s-master3 ansible_ssh_host=10.175.22.204 ip=10.175.22.204
     
-    k8s-worker1 ansible_ssh_host=10.195.22.205 ip=10.195.22.205
+    k8s-worker1 ansible_ssh_host=10.175.22.205 ip=10.175.22.205
     
-    k8s-worker2 ansible_ssh_host=10.195.22.210 ip=10.195.22.210
+    k8s-worker2 ansible_ssh_host=10.175.22.210 ip=10.175.22.210
     
-    k8s-worker3 ansible_ssh_host=10.195.22.212 ip=10.195.22.212
+    k8s-worker3 ansible_ssh_host=10.175.22.212 ip=10.175.22.212
     
-    rr ansible_ssh_host=10.195.22.225 ip=10.195.22.225
+    rr ansible_ssh_host=10.175.22.225 ip=10.175.22.225
 
     [kube-master]
     k8s-master1
