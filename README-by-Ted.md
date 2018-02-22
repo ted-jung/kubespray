@@ -190,5 +190,5 @@
     
     Thursday 21 December 2017  11:48:19 +0900 (0:00:00.078)       0:04:59.967 *****
     
-    included: /Users/ted.j/Kakaowork/Ted-K8S/kubespray/roles/kubernetes/node/tasks/install_host.yml for k8s-worker1, k8s-worker2, k8s-worker3, k8s-worker4
+    included: /Users/ted.j/kawork/Ted-K8S/kubespray/roles/kubernetes/node/tasks/install_host.yml for k8s-worker1, k8s-worker2, k8s-worker3, k8s-worker4
     
